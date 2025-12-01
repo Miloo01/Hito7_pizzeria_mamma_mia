@@ -1,9 +1,16 @@
 import React from 'react'
 import { Navbar as RBNavbar, Container, Nav } from 'react-bootstrap'
+import { formatNumber } from '../utils/format'
+import { FaHome, FaShoppingCart, FaLock, FaUnlock, FaSignInAlt, FaUserPlus } from 'react-icons/fa'
+
+
 
 const Navbar = () => {
+    // Simulaciones de estado
+    const token = false // true = usuario logueado
     const total = 25000
-    const token = false // Simula si el usuario está autenticado o no
+
+    const totalFormatted = formatNumber(total)
 
     return (
         <RBNavbar bg="dark" variant="dark" expand="lg">
@@ -12,24 +19,26 @@ const Navbar = () => {
                 <RBNavbar.Toggle aria-controls="basic-navbar-nav" />
                 <RBNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#profile">Profile</Nav.Link>
+                        <button type="button" className="btn btn-outline-light me-2" > 🍕 Home</button>
                     </Nav>
+
                     <Nav>
                         {token ? (
-                            <Nav.Link href="#logout">Logout</Nav.Link>
+                            <>
+                                <Nav.Link href="#profile">🔓 Profile</Nav.Link>
+                                <Nav.Link href="#logout">🔒 Logout</Nav.Link>
+                            </>
                         ) : (
-                            <Nav.Link href="#login">Login</Nav.Link>
+                            <>
+                                <Nav.Link href="#login">🔐 Login</Nav.Link>
+                                <Nav.Link href="#register">🔐 Register</Nav.Link>
+                            </>
                         )}
-                        <Nav.Link href="#register">Register</Nav.Link>
-                        
-                    </Nav>
-                    <Nav className="justify-content-end">
-
-                        <Nav.Link href="#total">Total: ${total}</Nav.Link>
-
                     </Nav>
 
+                    <Nav className="ms-auto">
+                        <button type="button" className="btn btn-warning text-dark">🛒 Total: ${totalFormatted}</button>
+                    </Nav>
                 </RBNavbar.Collapse>
             </Container>
         </RBNavbar>

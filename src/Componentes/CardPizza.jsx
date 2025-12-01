@@ -11,12 +11,12 @@ const CardPizza = ({ name = 'Pizza', price = 0, ingredients = [], img }) => {
                 <div className="card-body d-flex flex-column">
                     <h5 className="card-title"> Pizza {name}</h5>
                     <hr />
-                    <h5>Ingredientes:</h5>
+                    <h5> 🍕 Ingredientes:</h5>
                     <p className="card-text">{ingredients && ingredients.length ? ingredients.join(', ') : 'Ingredientes no especificados'}</p>
                     <hr />
                     <p className="fw-bold text-success">${priceFormatted}</p>
                     <div className="mt-auto">
-                        <button className="btn btn-info text-white me-2">Ver Más</button>
+                        <button className="btn btn-info text-white me-2">Ver Más 👀</button>
                         <button className="btn btn-danger">Añadir 🛒</button>
                     </div>
                 </div>

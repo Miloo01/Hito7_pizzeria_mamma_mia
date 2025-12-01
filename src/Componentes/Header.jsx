@@ -5,7 +5,7 @@ const headerStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundImage: '../url(https://thumbs.dreamstime.com/z/fondo-de-la-pizza-varios-tipos-italiana-comida-r%C3%A1pida-vista-desde-azotea-265118910.jpg?ct=jpeg)',
+  backgroundImage: 'url(https://thumbs.dreamstime.com/z/fondo-de-la-pizza-varios-tipos-italiana-comida-r%C3%A1pida-vista-desde-azotea-265118910.jpg?ct=jpeg)',
   
   backgroundSize: 'cover',
   backgroundColor: "rgba(0, 0, 0, 0.5)",
