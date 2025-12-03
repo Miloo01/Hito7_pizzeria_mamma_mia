@@ -1,9 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 
+
 const Register = () => {
 
-     //Estados del formulario
+    //Estados del formulario
     const [email, setEmail] = useState('');
     const [contraseña, setContraseña] = useState('');
     const [confirmarcontraseña, setConfirmarContraseña] = useState('');
@@ -15,11 +16,30 @@ const Register = () => {
         e.preventDefault();
 
         //Validación;
-        if (!email.trim() || !contraseña.trim() || !confirmarcontraseña.trim())
-            {
+        setError(false);
+
+
+        if (!email.trim() || !contraseña.trim() || !confirmarcontraseña.trim()) {
             setError(true);
-            return;
+            alert("Todos los campos son obligatorios");
+
+            
+        } else if (contraseña.length < 6) {
+            setError(true);
+            alert("La contraseña debe tener al menos 6 caracteres");
+
+            
+        } else if (contraseña !== confirmarcontraseña) {
+            setError(true);
+            alert("Las contraseñas no coinciden");
+            
+        } else if (contraseña === confirmarcontraseña) {
+            setError(false);
+            alert("Registro exitoso");
+
         }
+
+        
 
         // Si el formulario se envía correctamente devolvemos todos nuestros estados al inicial y reseteamos el formulario
         setError(false);
@@ -33,12 +53,12 @@ const Register = () => {
 
     return (
         <>
-            <form className="formulario" onSubmit={validarDatos}>
-                {error ? <p>Todos los campos son obligatorios</p> : null}
+            <form className="formulario w-50 mx-auto text-start" onSubmit={validarDatos}>
 
+              
                 
-                <div className="form-group">
-                    <label>Email</label>
+                <div className="form-group ">
+                    <label className='style-e mt-4 mb-2'>Email</label>
                     <input
                         type="text"
                         name="email"
@@ -49,7 +69,7 @@ const Register = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Contraseña</label>
+                    <label className='style-c mt-4 mb-2'>Contraseña</label>
                     <input
                         type="text"
                         name="contraseña"
@@ -59,8 +79,8 @@ const Register = () => {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label>Confirmar Contraseña</label>
+                <div className="form-group ">
+                    <label className='style-cc mt-4 mb-2'>Confirmar Contraseña</label>
                     <input
                         type="text"
                         name="confirmarcontraseña"
@@ -70,12 +90,10 @@ const Register = () => {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Enviar</button>
+                <button type="submit" className="btn btn-primary mt-3 ">Enviar</button>
             </form>
 
-            <hr />
-            <h1> Datos ingresados</h1>
-            {email} {contraseña} {confirmarcontraseña} 
+         
         </>
 
 
