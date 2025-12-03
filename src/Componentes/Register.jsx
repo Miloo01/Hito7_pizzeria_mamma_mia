@@ -16,9 +16,7 @@ const Register = () => {
         e.preventDefault();
 
         //Validación;
-        setError(false);
-
-
+        
         if (!email.trim() || !contraseña.trim() || !confirmarcontraseña.trim()) {
             setError(true);
             alert("Todos los campos son obligatorios");

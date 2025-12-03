@@ -14,10 +14,16 @@ const Login = () => {
             e.preventDefault();
     
             //Validación;
-            if (!email.trim() || !contraseña.trim())
-                {
+            if (!email.trim() || !contraseña.trim()){
                 setError(true);
-                return;
+                alert("Todos los campos son obligatorios");
+
+            } else if (contraseña.length < 6) {
+                setError(true);
+                alert("La contraseña debe tener al menos 6 caracteres");
+            } else {
+                setError(false);
+                alert("Login exitoso");
             }
     
             // Si el formulario se envía correctamente devolvemos todos nuestros estados al inicial y reseteamos el formulario
@@ -33,12 +39,12 @@ const Login = () => {
     //Estados del formulario
   return (
      <>
-            <form className="formulario" onSubmit={validarDatos}>
-                {error ? <p>Todos los campos son obligatorios</p> : null}
+            <form className="formulario w-50 mx-auto text-start" onSubmit={validarDatos}>
 
-                
+                <h3 className='style-login mt-4 fs-2'>Login</h3>
+
                 <div className="form-group">
-                    <label>Email</label>
+                    <label className='style-e mt-4 mb-2'>Email</label>
                     <input
                         type="text"
                         name="email"
@@ -49,7 +55,7 @@ const Login = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Contraseña</label>
+                    <label className='style-c mt-4 mb-2'>Contraseña</label>
                     <input
                         type="text"
                         name="contraseña"
@@ -59,10 +65,8 @@ const Login = () => {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Enviar</button>
+                <button type="submit" className="btn btn-primary mt-3">Login</button>
             </form>
-
-            <hr />
              
         </>
   )
