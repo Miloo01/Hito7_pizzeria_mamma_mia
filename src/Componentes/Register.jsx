@@ -60,6 +60,7 @@ const Register = () => {
                     <input
                         type="text"
                         name="email"
+                        placeholder='Ingresa tu correo'
                         className="form-control"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
@@ -71,6 +72,7 @@ const Register = () => {
                     <input
                         type="password"
                         name="contraseña"
+                        placeholder='Ingresa tu contraseña'
                         className="form-control"
                         onChange={(e) => setContraseña(e.target.value)}
                         value={contraseña}
@@ -82,6 +84,7 @@ const Register = () => {
                     <input
                         type="password"
                         name="confirmarcontraseña"
+                        placeholder='Ingresa nuevamente tu contraseña'
                         className="form-control"
                         onChange={(e) => setConfirmarContraseña(e.target.value)}
                         value={confirmarcontraseña}
