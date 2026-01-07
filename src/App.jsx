@@ -6,6 +6,8 @@ import Register from './Pages/Register'
 import Login from './Pages/Login'
 import Cart from './Pages/Cart'
 import Pizza from './Pages/Pizza'
+import NotFound from './Componentes/NotFound'
+import Profile from './Componentes/Profile'
 import './App.css'
 
 
@@ -25,9 +27,9 @@ const App = () =>  {
         <Route path='/login' element={<Login />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/pizza/p001' element={<Pizza />} />
-        <Route path='profile' element={<Profile />} /> {/* crear componente Profile */}
-        <Route path='/404' element={<NotFound />} /> {/* crear componente NotFound */}
-        <Route path='*' element={<NotFound />} /> {/* crear componente NotFound */}
+        <Route path='profile' element={<Profile />} /> 
+        <Route path='/404' element={<NotFound />} /> 
+        <Route path='*' element={<NotFound />} /> 
       </Routes>
 
       <main className='container p-0'  >
