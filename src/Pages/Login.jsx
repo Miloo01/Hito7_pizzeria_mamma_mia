@@ -16,28 +16,33 @@ const Login = () => {
         const { login } = useContext(UserContext);
         const navigate = useNavigate();
     
-        const validarDatos = (e) => {
+        const validarDatos = async (e) => {
             e.preventDefault();
     
-            //Validación;
+            //Validación local;
             if (!email.trim() || !contraseña.trim()){
                 setError(true);
                 alert("Todos los campos son obligatorios");
-
-            } else if (contraseña.length < 6) {
+                return; // se detiene la ejecución si hay error
+            } 
+            
+            if (contraseña.length < 6) {
                 setError(true);
                 alert("La contraseña debe tener al menos 6 caracteres");
-            } else {
-                setError(false);
-                alert("Login exitoso");
-                //Llamar al método login para restaurar el token
-                login();
-                //Redirigir a home
-                navigate("/");
-            }
+                return;
+            } 
+            // Si pasa las validaciones locales:
+            setError(false);
+
+            // Llamar al método login del contexto
+            await login(email, contraseña);
+
+            alert("Login exitoso");
+            //Redirigir a home
+            navigate("/");
+            
     
             // Si el formulario se envía correctamente devolvemos todos nuestros estados al inicial y reseteamos el formulario
-            setError(false);
             setEmail('');
             setContraseña('');
             

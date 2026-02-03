@@ -1,5 +1,7 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 const Register = () => {
@@ -12,35 +14,45 @@ const Register = () => {
     //Estado para los errores
     const [error, setError] = useState(false);
 
-    const validarDatos = (e) => {
+    //Se extrae register del contexto
+    const { register } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const validarDatos = async (e) => {
         e.preventDefault();
 
-        //Validación;
+        //Validación local;
 
         if (!email.trim() || !contraseña.trim() || !confirmarcontraseña.trim()) {
             setError(true);
             alert("Todos los campos son obligatorios");
-
-
-        } else if (contraseña.length < 6) {
+            return; // se detiene la ejecución si hay error
+        } 
+        
+        if (contraseña.length < 6) {
             setError(true);
             alert("La contraseña debe tener al menos 6 caracteres");
+            return;
 
-
-        } else if (contraseña !== confirmarcontraseña) {
+        } 
+        
+        if (contraseña !== confirmarcontraseña) {
             setError(true);
             alert("Las contraseñas no coinciden");
-
-        } else if (contraseña === confirmarcontraseña) {
-            setError(false);
-            alert("Registro exitoso");
+            return;
 
         }
-
-
-
-        // Si el formulario se envía correctamente devolvemos todos nuestros estados al inicial y reseteamos el formulario
+        
+        // Si pasa las validaciones locales, se registra en el backend
         setError(false);
+        await register(email, contraseña);
+
+        alert("Registro exitoso");
+        navigate("/"); // Redirigir a home
+
+        
+        // Si el formulario se envía correctamente devolvemos todos nuestros estados al inicial y reseteamos el formulario
+        
         setEmail('');
         setContraseña('');
         setConfirmarContraseña('');
