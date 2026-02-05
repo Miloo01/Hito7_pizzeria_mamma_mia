@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { CartContext } from '../context/CartContext'
 import { formatNumber } from "../utils/format";
 import { UserContext } from '../context/UserContext';
@@ -9,6 +9,31 @@ const Cart = () => {
   
   // Se extrae el token del contexto de usuario
   const { token } = useContext(UserContext);
+
+  // 8- Estado para mostrar el mensaje de exito al pagar
+  const [success, setSuccess] = useState(false);
+
+  //7-Método para enviar el carrito al backend
+  const handlePayment = async () => {
+    const response = await fetch("http://localhost:5000/api/checkouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Enviamos el token real
+      },
+      body: JSON.stringify({
+        cart: cart, // Enviamos el arreglo de productos
+      }),
+    });
+
+    if (response.ok) {
+      setSuccess(true);
+      alert("Pago realizado con éxito");
+    } else {
+      alert("Error al procesar el pago");
+    } 
+  };
+
 
   return (
     <div className="cart-container d-flex flex-column justify-content-around align-items-center p-4 mt-4 p-5 bg-light">
@@ -54,10 +79,18 @@ const Cart = () => {
             ))}
           </ul>
           <h5 className="mt-4 mb-4">Total: $ {formatNumber(getTotal())}</h5>
-          {/*lógica para mostrar el botón de pagar solo si el usuario está autenticado*/}
+          {/*lógica para mostrar el botón de pagar solo si el usuario está autenticado// mensaje de éxito*/}
+          {success && (
+            <div className="alert alert-success w-100 text-center">
+              ✅ ¡Felicidades! Tu compra ha sido procesada exitosamente.
+            </div>
+          )}
+
+
           <button className="btn btn-primary mb-4 px-5"
           //el boton se deshabilita si no hay token
-            disabled={!token}
+            disabled={!token || cart.length === 0}
+            onClick={handlePayment} //7- Al hacer click se llama a handlePayment
             style={{ backgroundColor: "#1A1A1A", border: "none", padding: "10px 25px", borderRadius: "50px", fontWeight: "bold", transition: "0.3s" }}
             onMouseOver={(e) => e.target.style.backgroundColor = "#FF8800"}
             onMouseOut={(e) => e.target.style.backgroundColor = "#1A1A1A"}>Pagar

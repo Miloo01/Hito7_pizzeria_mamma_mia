@@ -33,18 +33,14 @@ const Navbar = () => {
                             <button type="button" className="btn btn-outline-light me-2" > 🍕 Home</button>
                         </Link>
 
-                        <Link to="/profile" className="text-black ms-3 text-decoration-none">
-                            <button type="button" className="btn btn-outline-light me-2">🍕 Profile</button>
-                        </Link>
-
                     </Nav>
 
                     <Nav>
                         {token ? (
                             <>
-                                    <NavLink className={setActiveClass} to="/profile">🔓 Profile</NavLink>
-                                    {/* Se llama a Logout al hacer click */}
-                                    <NavLink onClick={logout} style={{cursor:'pointer'}}>🔒 Logout</NavLink>
+                                    <NavLink className={setActiveClass} to="/profile" style={{textDecoration: 'none', color: 'white'}}>🔓 Profile</NavLink>
+                                    {/* Se llama a boton Logout al hacer click */}
+                                    <NavLink onClick={logout} style={{cursor:'pointer', textDecoration: 'none', color: 'white'}}>🔒 Logout</NavLink>
                             </>
                         ) : (
                             <>

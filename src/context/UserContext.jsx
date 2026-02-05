@@ -10,7 +10,8 @@ const UserProvider = ({ children }) => {
     const [token, setToken] = useState(null); 
     const [email, setEmail] = useState(null);
 
-    // Estado 
+    // Estado para guardar la info del perfil que viene del backend
+    const [user, setUser] = useState(null);
     
     // Método para iniciar sesión {Login}
     const login = async(email, password) => {
@@ -55,18 +56,31 @@ const UserProvider = ({ children }) => {
     const logout = () => {
       setToken(null);
       setEmail(null);
+      setUser(null);
     };
 
-    const user = {
-        email: "desafiolatam2024@gmail.com",
-        name: "Mario Rossi",
-        memberSince: "Octubre 2023",
-        orders: 15,
+    //método para obtener el perfil del usuario consumiendo /api/auth/me
+    const getProfile = async () => {
+      const response = await fetch("http://localhost:5000/api/auth/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      
+      
+      // si la respuesta es correcta, se guardan los datos en el estado user
+      if (response.ok) {
+        setUser(data);
+      } else {
+        throw new Error(data.message || "Error al obtener el perfil del usuario");
+      }
     };
-    
 
   return (
-    <UserContext.Provider value={{token, email, login, register ,logout}}>
+    <UserContext.Provider value={{token, email, user, login, register ,logout, getProfile}}>
       {children}
     </UserContext.Provider>
   )
